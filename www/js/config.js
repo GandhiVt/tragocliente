@@ -1,8 +1,8 @@
 var krms_config ={			
-	'ApiUrl':"http://www.mascotitas.ga/mobileapp/api",		
+	'ApiUrl':"https://mibar24.com/mobileapp/api",		
 	'DialogDefaultTitle':"Pide tu trago",	
 	'pushNotificationSenderid':"",	
 	'facebookAppId':"",
-	'APIHasKey':"59bf731167e298f2c0eeafa2254f1020"
+	'APIHasKey':"2feff931f33e53b800bea391f13be11b"
 };
 
