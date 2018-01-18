@@ -5,12 +5,12 @@
     id        = "kmrs.mobile.app"
     versionCode = "22"
     version   = "2.2">
-    <name>Karenderia Mobile App</name>
+    <name>Mi Bar 24</name>
     <description>
-        Karenderia mobile app version
+        Deluivery de bebidas
     </description>
-    <author email="bastikikang@gmail.com" href="http://cordova.io">
-        bastisapp.com
+    <author email="hola@mibar24.com" href="http://cordova.io">
+        mibar24.com
     </author>
             
     <content src="index.html" />
