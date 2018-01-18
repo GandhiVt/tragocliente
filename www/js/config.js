@@ -3,6 +3,6 @@ var krms_config ={
 	'DialogDefaultTitle':"Pide tu trago",	
 	'pushNotificationSenderid':"",	
 	'facebookAppId':"208153039733325",
-	'APIHasKey':"f0e835c1ae957f1eeb3f85937b19f248"
+	'APIHasKey':"ea27d99f22565f843ec26cc8ea9fbce5"
 };
 
