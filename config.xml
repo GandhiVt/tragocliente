@@ -2,15 +2,15 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
     xmlns:gap = "http://phonegap.com/ns/1.0"
     xmlns:android = "http://schemas.android.com/apk/res/android"
-    id        = "pe.mibar.24"
+    id        = "kmrs.mobile.app"
     versionCode = "22"
     version   = "2.2">
-    <name>Mi Bar 24</name>
+    <name>Karenderia Mobile App</name>
     <description>
-        Delivery de Bebidas
+        Karenderia mobile app version
     </description>
-    <author email="hola@algoritmoazul.com" href="http://cordova.io">
-        algoritmoazul.com
+    <author email="bastikikang@gmail.com" href="http://cordova.io">
+        bastisapp.com
     </author>
             
     <content src="index.html" />
@@ -39,8 +39,8 @@
 	<gap:plugin name="cordova-plugin-googlemaps-plus" source="npm" >
        <param name="API_KEY_FOR_ANDROID" value="" />
        <param name="API_KEY_FOR_IOS" value="" />
-       <param name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Mi Bar 24 quiere buscar tu ubicación" />
-       <param name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Mi Bar 24 quiere usar siempre tu ubicación" />
+       <param name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Karenderia wants to use your location" />
+       <param name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Karenderia want to always use your location" />
     </gap:plugin>
     
     <gap:plugin name="cordova-plugin-buildinfo" source="npm" spec="1.1.0"  />
@@ -82,19 +82,19 @@
 	</platform>   
 	
 	<edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
-    <string>necesita acceso a la cámara para tomar fotos</string>
+    <string>need camera access to take pictures</string>
 	</edit-config>
 	
 	<edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
-	    <string>Necesito acceso a la biblioteca de fotos para obtener fotos desde allí</string>
+	    <string>need to photo library access to get pictures from there</string>
 	</edit-config>
 	
 	<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
-	    <string>necesita acceso a la ubicación para encontrar cosas cercanas</string>
+	    <string>need location access to find things nearby</string>
 	</edit-config>
 	
 	<edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
-	    <string>necesidad de acceso a la biblioteca de fotos para guardar imágenes allí</string>
+	    <string>need to photo library access to save pictures there</string>
 	</edit-config>
     
 	<platform name="android">
