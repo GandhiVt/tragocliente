@@ -74,10 +74,10 @@
 
     <platform name="ios">    
 	    <config-file platform="ios" target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
-	        <string>Karenderia want to always use your location</string>
+	        <string>Mi Bar 24 want to always use your location</string>
 	    </config-file>
 	    <config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
-	        <string>Karenderia wants to use your location</string>
+	        <string>Mi Bar 24 wants to use your location</string>
 	    </config-file>
 	</platform>   
 	
