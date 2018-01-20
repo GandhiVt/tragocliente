@@ -38,9 +38,9 @@
 		
 	<gap:plugin name="cordova-plugin-googlemaps-plus" source="npm" >
        <param name="API_KEY_FOR_ANDROID" value="AIzaSyBg6pTNx94FmwNkEN9Tl9APGrocyZvUGJI" />
-       <param name="API_KEY_FOR_IOS" value="AIzaSyDVnuq3y3yFkaiWkwO0WWiN_1hB95BzFfg" />
-       <param name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Karenderia wants to use your location" />
-       <param name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Karenderia want to always use your location" />
+       <param name="API_KEY_FOR_IOS" value="AIzaSyBg6pTNx94FmwNkEN9Tl9APGrocyZvUGJI" />
+       <param name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Mi Bar 24 wants to use your location" />
+       <param name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Mi Bar 24 want to always use your location" />
     </gap:plugin>
     
     <gap:plugin name="cordova-plugin-buildinfo" source="npm" spec="1.1.0"  />
@@ -53,7 +53,7 @@
     <platform name="ios" /> 
     		    
 	<preference name="AutoHideSplashScreen" value="false" />  	
-    <preference name="SplashScreenDelay" value="80000" />    
+    <preference name="SplashScreenDelay" value="10000" />    
     <preference name="fullscreen" value="true" />
     <preference name="android-minSdkVersion" value="16" />     
     <preference name="ShowSplashScreenSpinner" value="false" />	
