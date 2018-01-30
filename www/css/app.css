@@ -18,7 +18,7 @@ padding:8px;
 .orange-header
 {
 max-width:100%;
-background:#d5051b;
+background:#00B279;
 color:#fff;
 padding-top:10px;
 padding-bottom:15px;
@@ -36,7 +36,7 @@ margin:auto;
 max-width:70%;
 }
 .navigation-bar{
-background:#d5051b;
+background:#00B279;
 color:#fff;
 border:none;
 }
@@ -638,7 +638,7 @@ font-size:14px;
 
 #scroller-pts-details span
 {
-color:#d5051b;
+color:#00B279;
 }
 
 .profile-pic-wrap{
@@ -730,7 +730,7 @@ display:none;
   border-top: 1.1em solid rgba(247,93,52, 0.2);
   border-right: 1.1em solid rgba(247,93,52, 0.2);
   border-bottom: 1.1em solid rgba(247,93,52, 0.2);
-  border-left: 1.1em solid #d5051b;
+  border-left: 1.1em solid #00B279;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
@@ -791,7 +791,7 @@ margin-top:20px;
   border-top: 1.1em solid rgba(247,93,52, 0.2);
   border-right: 1.1em solid rgba(247,93,52, 0.2);
   border-bottom: 1.1em solid rgba(247,93,52, 0.2);
-  border-left: 1.1em solid #d5051b;
+  border-left: 1.1em solid #00B279;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
@@ -866,7 +866,7 @@ display:none;
 }
 
 .button.orange-btn{
-background:#d5051b;
+background:#00B279;
 }
 
 .time-remaining-wrap{
@@ -1138,7 +1138,7 @@ padding:0;
 .spinner > div {
   width: 12px;
   height: 12px;
-  background-color: #d5051b;
+  background-color: #00B279;
 
   border-radius: 100%;
   display: inline-block;
