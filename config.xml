@@ -4,7 +4,7 @@
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        = "pe.mi.bar"
     versionCode = "23"
-    version   = "2.2">
+    version   = "2.3">
     <name>Mi Bar 24</name>
     <description>
         Delivery de bebidas en Lima
