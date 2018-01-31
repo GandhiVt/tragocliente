@@ -3,11 +3,11 @@
     xmlns:gap = "http://phonegap.com/ns/1.0"
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        = "pe.mi.bar"
-    versionCode = "22"
+    versionCode = "23"
     version   = "2.2">
     <name>Mi Bar 24</name>
     <description>
-        Deluivery de bebidas
+        Delivery de bebidas en Lima
     </description>
     <author email="hola@mibar24.com" href="http://cordova.io">
         mibar24.com
