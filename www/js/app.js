@@ -42,6 +42,7 @@ function onDeviceReady() {
 	   					
 	navigator.splashscreen.hide();
 	initAd();
+	showBannerFunc();
 	showInterstitialFunc();
 	if(!isDebug()){
  	   getLanguageSettings();
@@ -9119,11 +9120,11 @@ function initAd(){
         if ( window.plugins && window.plugins.AdMob ) {
             var ad_units = {
                 ios : {
-                    
+                    banner: 'ca-app-pub-xxxxxxxxxxx/xxxxxxxxxxx',		//PUT ADMOB ADCODE HERE 
                     interstitial: 'ca-app-pub-xxxxxxxxxxx/xxxxxxxxxxx'	//PUT ADMOB ADCODE HERE 
                 },
                 android : {
-                    
+                    banner: 'ca-app-pub-xxxxxxxxxxx/xxxxxxxxxxx',		//PUT ADMOB ADCODE HERE 
                     interstitial: 'ca-app-pub-3332475105709099/9330740906'	//PUT ADMOB ADCODE HERE 
                 }
             };
@@ -9158,7 +9159,10 @@ function registerAdEvents() {
     }
 
 
-
+    //display the banner 
+function showBannerFunc(){
+    window.plugins.AdMob.createBannerView();
+}
 //display the interstitial 
 function showInterstitialFunc(){
     window.plugins.AdMob.createInterstitialView();	//get the interstitials ready to be shown and show when it's loaded. 
