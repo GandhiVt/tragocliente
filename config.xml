@@ -4,7 +4,7 @@
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        = "pe.mi.bar"
     versionCode = "23"
-    version   = "2.3">
+    version   = "2.4">
     <name>Mi Bar 24</name>
     <description>
         Delivery de bebidas en Lima
@@ -20,7 +20,7 @@
 		
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	<gap:plugin name="cordova-plugin-admob-simple" source="npm" />
-	
+
     <gap:plugin name="phonegap-plugin-push" source="npm" spec="1.10.5"  /> 
     
     <gap:plugin name="com.paypal.cordova.mobilesdk" source="npm"  />            	
