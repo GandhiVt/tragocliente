@@ -58,7 +58,7 @@
 	<preference name="AutoHideSplashScreen" value="false" />  	
     <preference name="SplashScreenDelay" value="10000" />    
     <preference name="fullscreen" value="false" />
-    <preference name="android-minSdkVersion" value="16" />     
+    <preference name="android-minSdkVersion" value="19" />     
     <preference name="ShowSplashScreenSpinner" value="false" />	
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#00B279" />
