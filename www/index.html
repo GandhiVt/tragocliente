@@ -76,15 +76,18 @@
 
 <script type="text/ons-template" id="pageGetSettings.html">
   <ons-page modifier="getsettings" id="page-getsettings">
-
+  
+   <div class="greybg">
    <div class="main-getsettings">
-     <img src="css/images/banner.png" alt="" title="">
+     
      <div class="retry-language center">
-           <button class="button button--quiet green" onclick="getLanguageSettings();">	       
-	         <ons-icon icon="ion-android-refresh" size="30px"></ons-icon>
-	       </button>       
+       <p>Retry</p>
+       <button class="button button--quiet green" onclick="getLanguageSettings();">	       
+         <ons-icon icon="ion-android-refresh" size="30px"></ons-icon>
+       </button>       
      </div>
    </div> 
+   </div>
   
   </ons-page>
 </script>
@@ -114,7 +117,7 @@
       <ons-icon icon="ion-ios-home-outline"></ons-icon> <span class="trn" data-trn-key="home">Home</span>
     </ons-list-item>
     
-    <ons-list-item onclick="menu.setMainPage('browseRestaurant.html', {closeMenu: true})" class="bottom-menu-item">
+    <ons-list-item onclick="initBrowseMerchant();" class="bottom-menu-item">
       <ons-icon icon="ion-android-menu"></ons-icon> 
       <span class="trn" data-trn-key="browse_resto">Browse Restaurant</span>
     </ons-list-item>
@@ -138,6 +141,8 @@
       <ons-icon icon="ion-connection-bars"></ons-icon> 
       <span class="trn" data-trn-key="my_points">My Points</span>
     </ons-list-item>    
+    
+    <div id="custom_pages"></div>
     
     <ons-list-item onclick="menu.setMainPage('settings.html', {closeMenu: true})" class="bottom-menu-item">
       <ons-icon icon="ion-gear-a"></ons-icon> 
@@ -164,6 +169,8 @@
 
     </ons-toolbar>
 
+    <DIV class="search_by_address">
+    
     <div class="home-header">
          <img src="css/images/banner.png" alt="" title="">
     </div> 
@@ -187,8 +194,7 @@
 	      <span class="trn" data-trn-key="search_restaurant">Search Restaurant</span>    	      
 	      <div class="search-btn"><ons-icon icon="fa-chevron-right"></ons-icon></div>
 	   </button>
-	   
-	   	  
+	   	   	  
     </div>      
 
     <div class="wrapper no-connection">
@@ -199,6 +205,49 @@
          </ons-icon> <span class="trn" data-trn-key="tap_to_retry">Tap to retry</span>
       </button>
     </div>   
+    
+    </DIV>
+    
+    <DIV class="search_by_location">
+       <div class="search-banner"></div>
+       
+       <div class="home-page wrapper center">       
+       <h4 class="trn" data-trn-key="order_food_online">Order food online from 1000+ restaurants!</h4>
+       
+       <input type="hidden" name="state_id" id="state_id" class="state_id" >
+       <input type="hidden" name="city_id" id="city_id" class="city_id" >
+       <input type="hidden" name="area_id" id="area_id" class="area_id" >
+       
+       <ons-list modifier="inset">
+       
+        <ons-list-item modifier="chevron" class="trn location_state" data-trn-key="location_state" onclick ="showState()" >
+        State
+        </ons-list-item>
+        
+        <ons-list-item modifier="chevron" class="trn location_city" data-trn-key="location_city" onclick ="showCity()" >        
+        City
+        </ons-list-item>
+        
+        <ons-list-item modifier="chevron" class="trn location_area" data-trn-key="destrict_area" onclick ="showArea()" >        
+        District / Area
+        </ons-list-item>
+        
+        <ons-list-item modifier="chevron" class="trn location_postal" data-trn-key="postal_code" onclick ="showPostal()" >        
+        Postal Code/Zip Code
+        </ons-list-item>
+        
+       </ons-list>
+              
+       
+       <div class="padtop25">
+        <button class="button green-btn button--large" onclick="searchMerchant();">
+	      <span class="trn" data-trn-key="show_restaurants">Show Restaurants</span>    	      
+	      <div class="search-btn"><ons-icon icon="fa-chevron-right"></ons-icon></div>
+	   </button>
+	   </div>
+       
+       </div>              
+    </DIV>
         
   </ons-page>
 </ons-navigator>  
@@ -224,10 +273,14 @@
       
    <div class="results-header arrow_box"><span class="result-msg"></span></div>
           
-   <ons-scroller >
-    <ons-list class="restaurant-list" id="restaurant-results" >
+   <div style="position:relative;">
+   
+    <ons-list class="restaurant-list" id="lazy-parent" >
+       <ons-list-item ons-lazy-repeat="lazyLoadSearch" style="padding:0;" modifier="tappable" class="list-item-container lazy-list">      
+       </ons-list-item>
     </ons-list>
-   </ons-scroller>
+   
+   </div>
   
 </ons-page>
 </ons-navigator> 
@@ -249,7 +302,7 @@
 	  
 	  <div class="wrapper">
 	      <div class="field-wrapper">
-	      <input type="text" name="restaurant_name"  class="restaurant_name text-input text-input--underbar has_validation" 
+	      <input type="text" name="restaurant_name"  class="filter_restaurant_name restaurant_name text-input text-input--underbar has_validation" 
 	      placeholder="Enter Restaurant name" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" >
 	      </div>
 	  </div>	
@@ -281,26 +334,32 @@
      </div>
            
    </ons-toolbar>
-      
-   <div class="orange-header">
-      <ons-row >
-        <ons-col width="40%">
-           <div class="logo-wrap logo-non-auto" >           
-           </div>
-        </ons-col>
-        <ons-col class="text-right">
-           <a href="javascript:loadMoreReviews();" style="text-decoration:none;">
-           <div class="rating-stars" data-score=""></div>           
-           </a>
-           <p class="restauran-title concat-text white"></p>           
-        </ons-col>
-      </ons-row>
-   </div> 
-      
+             
    <input type="hidden" name="merchant_open" id="merchant_open" >
    <input type="hidden" name="close_store" id="close_store" >
    
-   <ons-scroller id="category-list">      
+   <input type="hidden" name="selected_restaurant_name" id="selected_restaurant_name" class="selected_restaurant_name" >
+   <input type="hidden" name="selected_restaurant_ratings" id="selected_restaurant_ratings" class="selected_restaurant_ratings" >
+   
+   <div class="menu-header"> 
+    <div class="inner">
+        <div class="sub-inner">
+          <div class="logo-wrap" ></div>
+          
+          <a href="javascript:loadMoreReviews();" style="text-decoration:none;">
+           <div class="rating-stars" data-score=""></div>           
+           </a>
+          
+          <p class="restauran-title white concat-text"></p> 
+        </div>
+    </div>    
+   </div>
+   
+   <ons-scroller id="category-list"> 
+      <ons-list id="lazy-parent" >
+	      <ons-list-item ons-lazy-repeat="lazyFoodCategory" style="padding:0;" modifier="tappable" class="list-item-container lazy-list">      
+	      </ons-list-item>
+	  </ons-list>
    </ons-scroller>  
    
 </ons-page>
@@ -318,9 +377,7 @@
         <span class="notification cart-num" onclick="showCart();" >0</span>
         <ons-icon icon="fa-shopping-cart" onclick="showCart();" class="cart"></ons-toolbar-button>
         
-        <ons-toolbar-button onclick="showEasyCategory(this);">
-           <ons-icon icon="ion-ios-list" size="30px"></ons-icon>
-        </ons-toolbar-button>
+        
         
      </div>
      
@@ -339,7 +396,11 @@
       </ons-row>
    </div> 
    
-   <ons-scroller id="menu-list">           
+   <ons-scroller id="menu-list">      
+        <ons-list id="lazy-parent" >
+	      <ons-list-item ons-lazy-repeat="lazyItem" style="padding:0;" modifier="tappable" class="list-item-container lazy-list restaurant-list">      
+	      </ons-list-item>
+	    </ons-list>     
    </ons-scroller>
   
 </ons-page>
@@ -402,7 +463,10 @@
    
    <div class="wrapper">
        <ons-row class="row">
-           <ons-col class="text-big concat-text trn" width="60%" data-trn-key="your_order">Your Order</ons-col>
+           <ons-col class="text-big pad-top10  trn" data-trn-key="your_order">Your Order</ons-col>
+           <ons-col >           
+             <button onclick="clearCart();" class="clear-cart button button--quiet green trn" data-trn-key="clear_cart">Clear Cart</button>
+           </ons-col>
            <ons-col class="text-right" >
               <button class="edit-order button button--quiet green trn" data-trn-key="edit_order">Edit Order</button>
               <button class="order-apply-changes button button--quiet green trn" data-trn-key="apply_changes">
@@ -1107,12 +1171,12 @@
         
    </ons-toolbar>
    
-   <div class="results-header arrow_box"><span class="result-msg trn" data-trn-key="processing">processing</span></div>
-   
-   <ons-scroller>
-     <ons-list class="restaurant-list"  id="browse-results" >
-     </ons-list>
-   </ons-scroller>
+   <div class="results-header arrow_box"><span class="result-msg" data-trn-key="processing">processing</span></div>
+      
+    <ons-list class="restaurant-list" id="lazy-parent" >
+       <ons-list-item ons-lazy-repeat="lazyBrowseMerchant" modifier="tappable" class="list-item-container lazy-list">      
+       </ons-list-item>
+    </ons-list>      
       
 </ons-page>
 </ons-navigator> 
@@ -1155,8 +1219,14 @@
         <ons-icon icon="fa-chevron-left"></ons-icon>
      </ons-toolbar-button>        
     </div> 
+    
+    <div class="right">
+    <ons-toolbar-button onclick="browseCamera();">
+        <ons-icon icon="ion-ios-camera"></ons-icon>
+     </ons-toolbar-button>        
+    </div>
          
-    <div class="center white"><span id="search-text" class="trn" data-trn-key="profile">Profile</span></div>                  
+    <div class="center white"><span id="search-text" class="trn profile_title" data-trn-key="profile">Profile</span></div>                  
    </ons-toolbar>
    
     <div class="profile-pic-wrap">
@@ -1164,8 +1234,8 @@
 	      <div class="img_loaded">
 	      <img class="avatar" src=""/>
 	      </div>
-	    </div>	   
-	 </div>
+	    </div>	   	   	    
+	</div>
    
    <form id="frm-profile" class="frm-profile" method="post">   
    <div class="wrapper">
@@ -1234,6 +1304,12 @@
         <ons-icon icon="fa-facebook"></ons-icon> <span class="trn" data-trn-key="sigin_fb">Sign in with Facebook</span>
       </button>                   
    </div>   
+   
+   <div class="wrapper center wrapper-white google-login-wrap">   
+      <button class="button orange-btn button--large google-loginbutton" id="google-loginbutton" onclick="googleLogin();">
+        <ons-icon icon="ion-social-googleplus"></ons-icon> <span class="trn" data-trn-key="sigin_google">Sign in with Google</span>
+      </button>                   
+   </div>   
       
    <div class="wrapper center">      
       <h4 class="trn" data-trn-key="or_use_your_email">or use your email address</h4>                         
@@ -1275,12 +1351,20 @@
         <ons-icon icon="fa-facebook"></ons-icon> 
         <span class="sigin_fb trn" data-trn-key="sigin_fb">Sign in with Facebook</span>
       </button>                   
+   </div> 
+
+   <div class="wrapper center wrapper-white google-login-wrap">   
+      <button class="button orange-btn button--large google-loginbutton" id="google-loginbutton" onclick="googleLogin();">
+        <ons-icon icon="ion-social-googleplus">
+        </ons-icon> <span class="trn" data-trn-key="sigin_google">Sign in with Google</span>
+      </button>                   
+   </div>     
       
    <div class="center pad-top10">
    <h4 class="trn" data-trn-key="or_use_your_email">or use your email address</h4>
    </div>
       
-   </div>   
+    
         
    <form id="frm-login" class="frm-login" method="post">   
    <input type="hidden" name="next_steps" class="next_steps">
@@ -2109,7 +2193,7 @@
      <div class="center white"><span class="trn" data-trn-key="map" >Map</span></div>                       
    </ons-toolbar>
    
-   <div id="map_canvas_div">
+   <div id="map_canvas_div" class="map_canvass">
    
        <div class="list-wrapper" id="direction-wrap">
          <ons-list>
@@ -2232,8 +2316,8 @@
    <ons-toolbar>        
      <div class="left"><ons-back-button></ons-back-button></div>                      
      <div class="center white">
-     <span class="trn" data-trn-key="search_restaurant_by_map" >
-      Search Restaurant by map
+     <span class="trn" data-trn-key="map" >
+      Map
      </span>
      </div>
    </ons-toolbar>
@@ -2247,7 +2331,7 @@
       <input id="search_address_geo" value="" type="text" class="search_address_geo text-input text-input--underbar trn" ng-model="text" placeholder="Street Address,City,State" data-trn-key="home_search_placeholder" >
    </div>
    
-   <div id="map_canvas_address">   
+   <div id="map_canvas_address" class="map_canvass">   
 
        <div class="list-wrapper" id="direction-wrap">
              <ons-button class="button green-btn button--large" onclick="useThisLocation()" >
@@ -2341,6 +2425,11 @@
    <input type="hidden" name="driver_icon" class="driver_icon">
    <input type="hidden" name="address_icon" class="address_icon">
    <input type="hidden" name="driver_avatar" class="driver_avatar">
+   
+   <input type="hidden" name="dropoff_lat" class="dropoff_lat">
+   <input type="hidden" name="dropoff_lng" class="dropoff_lng">
+   <input type="hidden" name="drop_address" class="drop_address">
+   <input type="hidden" name="merchant_icon" class="merchant_icon">
    
    <div class="time-remaining-wrap">
         <div class="rounded-green">
@@ -2498,7 +2587,9 @@
      </div>
      
      <div class="right">
-       <ons-toolbar-button onclick="showCCForm();" ><ons-icon icon="ion-plus-round"></ons-toolbar-button>
+       <ons-toolbar-button onclick="showCCForm();" >
+         <span class="trn" data-trn-key="add_card" >Add Card</span>
+       </ons-toolbar-button>
      </div>
    </ons-toolbar>
    
@@ -2634,6 +2725,354 @@
    </form> 
 
 </ons-page>
+</script>
+
+
+
+<script type="text/ons-template" id="hubtelForm.html">   
+<ons-page id="page-hubtel-form">
+   <ons-toolbar>        
+     <div class="left"><ons-back-button></ons-back-button></div>                      
+     <div class="center white"><span class="trn">
+     Hubtel Payments</span></div>                       
+   </ons-toolbar>
+   
+   <form id="frm-hubtel" class="frm-hubtel" method="post">   
+   <input type="hidden" id="order_id" name="order_id" class="order_id" value=""> 
+   <input type="hidden" id="currency_code" name="currency_code" class="currency_code" value=""> 
+   <input type="hidden" id="paymet_desc" name="paymet_desc" class="paymet_desc" value=""> 
+   <input type="hidden" id="total_w_tax" name="total_w_tax" class="total_w_tax" value=""> 
+   
+   <input type="hidden" id="channel_code" name="channel_code" class="channel_code" value=""> 
+   
+   <div class="wrapper">
+   
+    <div class="field-wrapper">
+      <input type="text" name="customer_name"  class="customer_name limit_char  text-input text-input--underbar has_validation" 
+      placeholder="Name" value="" data-validation="required" data-validation-error-msg="this field is mandatory!"  >
+    </div>
+    
+    <div class="field-wrapper">
+      <input type="text" name="customer_mobileno"  class="customer_mobileno limit_char  text-input text-input--underbar has_validation" 
+      placeholder="Mobile numbers" value="" data-validation="required" data-validation-error-msg="this field is mandatory!"  >
+    </div> 
+    
+   <div class="field-wrapper">
+      <input type="text" name="customer_email"  class="customer_email limit_char  text-input text-input--underbar has_validation" 
+      placeholder="Email" value=""  >
+    </div> 
+    
+     
+    
+   
+   <button class="trn button green-btn button--large" onclick="hubtePaynow();" data-trn-key="pay_now">
+	Pay Now
+	<div class="search-btn"><ons-icon icon="ion-checkmark-round"></ons-icon></div>
+   </button>
+   
+   </div>
+   
+   </form> 
+
+</ons-page>
+</script>
+
+
+
+<script type="text/ons-template" id="hubtelChannel.html">    
+  <ons-dialog var="hubtelChannel" style="width:90%;height:350px;" cancelable  >
+
+  <ons-page id="page-hubtel-channel" >  
+	  <ons-toolbar> 
+	       	      	      	      
+	      <div class="right">         
+            <ons-toolbar-button onclick="hubtelChannel.hide();" >
+            <ons-icon icon="ion-checkmark-round"></ons-toolbar-button>
+          </div>
+      
+	  </ons-toolbar>
+	  
+	  <ons-scroller class="hubtel-channel-options-list" id="hubtel-channel-options-list">	  
+	  </ons-scroller> 	 
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>
+
+<script type="text/ons-template" id="locationCity.html">    
+  <ons-dialog var="locationCity" style="width:90%;height:350px;" cancelable  >
+
+  <ons-page id="page-location-city" >  
+	  <ons-toolbar> 
+	       	      	      	      
+	      <div class="right">         
+            <ons-toolbar-button onclick="locationCity.hide();" >
+            <ons-icon icon="ion-ios-close-empty"></ons-toolbar-button>
+          </div>
+      
+          
+	  </ons-toolbar>
+	  
+	   <ons-list>
+	     <ons-list-header>
+	       <ons-row >
+             <ons-col width="70%">
+             
+             <input type="text" name="search_city"  class="search_city text-input text-input--transparent" 
+      placeholder="Type City here" value=""  >
+             
+             </ons-col>
+             <ons-col >
+             
+             <button class="button green-btn button--large" onclick="searchCity();">
+		      <span class="trn search_title" data-trn-key="search">Search</span>    	      		      
+		   </button>
+             
+             </ons-col>
+           </ons-row >  
+	     </ons-list-header>        
+	   </ons-list>
+	  
+	  <ons-scroller class="location-city-list" id="location-city-list">	  
+	  </ons-scroller> 	 
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>	  
+
+
+<script type="text/ons-template" id="locationArea.html">    
+  <ons-dialog var="locationArea" style="width:90%;height:350px;" cancelable  >
+
+  <ons-page id="page-location-area" >  
+	  <ons-toolbar> 
+	       	      	      	      
+	      <div class="right">         
+            <ons-toolbar-button onclick="locationArea.hide();" >
+            <ons-icon icon="ion-ios-close-empty"></ons-toolbar-button>
+          </div>
+      
+	  </ons-toolbar>
+	  
+	    <ons-list>
+	     <ons-list-header>
+	       <ons-row >
+             <ons-col width="70%">
+             
+             <input type="text" name="search_area"  class="search_area text-input text-input--transparent" 
+      placeholder="Type Area here" value=""  >
+             
+             </ons-col>
+             <ons-col >
+             
+             <button class="button green-btn button--large" onclick="searchArea();">
+		      <span class="trn search_title" data-trn-key="search">Search</span>    	      		      
+		   </button>
+             
+             </ons-col>
+           </ons-row >  
+	     </ons-list-header>        
+	   </ons-list>
+	  
+	  <ons-scroller class="location-area-list" id="location-area-list">	  
+	  </ons-scroller> 	 
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>	  
+
+<script type="text/ons-template" id="locationTypeCityArea.html">   
+<ons-page id="page-location-type">
+   <ons-toolbar>        
+     <div class="left"><ons-back-button onclick="reloadCart();"></ons-back-button></div>                      
+     <div class="center white"><span class="trn" data-trn-key="select_location" >Select Your location</span></div>                       
+   </ons-toolbar>
+   
+   <input type="hidden" name="state_id" id="state_id" class="state_id" >
+   <input type="hidden" name="city_id" id="city_id" class="city_id" >
+   <input type="hidden" name="area_id" id="area_id" class="area_id" >
+   
+   <ons-list >
+   
+   <ons-list-item modifier="chevron" class="trn location_state" data-trn-key="location_state" onclick ="showState()" >        
+    State
+    </ons-list-item>
+   
+	<ons-list-item modifier="chevron" class="trn location_city" data-trn-key="city" onclick ="showCity()" >        
+	City
+	</ons-list-item>
+	
+	<ons-list-item modifier="chevron" class="trn location_area" data-trn-key="destrict_area" onclick ="showArea()" >        
+	District / Area
+	</ons-list-item>
+	
+   </ons-list>
+   
+</ons-page>
+</script>   
+
+<script type="text/ons-template" id="shippingLocationArea.html"> 
+<ons-page id="page-shipping-location-area" class="onsen-display">
+   <ons-toolbar>        
+     <div class="left"><ons-back-button></ons-back-button></div>     
+     <div class="center white"><span id="search-text" class="trn" data-trn-key="checkout">Checkout</span></div>     
+   </ons-toolbar>
+   
+   <form id="frm-shipping" class="frm-shipping" method="post">
+   
+   <input type="hidden" name="state_id" id="state_id" class="state_id" >  
+   <input type="hidden" name="city_id" id="city_id" class="city_id" >
+   <input type="hidden" name="area_id" id="area_id" class="area_id" >
+   
+   <input type="hidden" name="city" class="city">
+   <input type="hidden" name="state" class="state">   
+   <input type="hidden" name="zipcode" class="zipcode">  
+   <input type="hidden" name="area_name" class="area_name">  
+   
+   <ons-list>
+   
+   <ons-list-item modifier="chevron" class="trn location_state" data-trn-key="location_state" onclick ="showState()" >        
+    State
+    </ons-list-item>
+   
+	<ons-list-item modifier="chevron" class="trn location_city" data-trn-key="city" onclick ="showCity()" >        
+	City
+	</ons-list-item>
+	
+	<ons-list-item modifier="chevron" class="trn location_area" data-trn-key="destrict_area" onclick ="showArea()" >        
+	District / Area
+	</ons-list-item>
+	
+   </ons-list>
+   
+    <div class="wrapper">
+      <div class="field-wrapper">
+      <input type="text" name="street"  class="street text-input text-input--underbar has_validation" 
+      placeholder="Street" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" >
+      </div>      
+   </div>
+   
+   <div class="wrapper">
+      <div class="field-wrapper">
+      <input type="text" name="contact_phone"  class="mobile_inputs contact_phone text-input text-input--underbar has_validation" 
+      placeholder="Contact phone" value="" data-validation="required" data-validation-error-msg="this field is mandatory!" >
+      </div>      
+   </div>
+   
+   <div class="wrapper">
+      <div class="field-wrapper">
+      <input type="text" name="location_name"  class="location_name text-input text-input--underbar" 
+      placeholder="Apartment suite, unit number, or company name"  >
+      </div>      
+   </div>
+   
+   <div class="wrapper">
+      <div class="field-wrapper">
+      <input type="text" name="delivery_instruction"  class="delivery_instruction text-input text-input--underbar" 
+      placeholder="Delivery instructions" value="" >
+      </div>      
+   </div>
+   
+    <div class="wrapper">
+	   <div class="field-wrapper">	     
+	     <label class="switch">
+			  <input type="checkbox" value="2" class="switch__input save_address" name="save_address" >
+			  <div class="switch__toggle"></div>
+		  </label>  		  
+		  <span class="small-font-dim trn" data-trn-key="save_address_book" style="margin-top: 8px; display: inline-block">
+		    Save to my address book
+		  </span>
+	    </div> 
+    </div> 
+   
+    <button class="button green-btn button--large trn" onclick="clientShipping();" data-trn-key="select_payment_method">
+	Select Payment Method
+	<div class="search-btn"><ons-icon icon="fa-chevron-right"></ons-icon></div>
+   </button>
+   </form>
+
+</ons-page>
+</script>     
+
+<script type="text/ons-template" id="locationState.html">    
+  <ons-dialog var="locationState" style="width:90%;height:350px;" cancelable  >
+
+  <ons-page id="page-location-state" >  
+	  <ons-toolbar> 
+	       	      	      	      
+	      <div class="right">         
+            <ons-toolbar-button onclick="locationState.hide();" >
+            <ons-icon icon="ion-android-close"></ons-toolbar-button>
+          </div>
+      
+	  </ons-toolbar>
+	  
+	  <ons-scroller class="location-state-list" id="location-state-list">	  
+	  </ons-scroller> 	 
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>	  
+   
+
+<script type="text/ons-template" id="locationPostal.html">    
+  <ons-dialog var="locationPostal" style="width:90%;height:350px;" cancelable  >
+
+  <ons-page id="page-location-postal" >  
+	  <ons-toolbar> 
+	       	      	      	      
+	      <div class="right">         
+            <ons-toolbar-button onclick="locationPostal.hide();" >
+            <ons-icon icon="ion-checkmark-round"></ons-toolbar-button>
+          </div>
+      
+	  </ons-toolbar>
+	  
+	  <ons-scroller class="location-area-postal" id="location-area-postal">	  
+	  </ons-scroller> 	 
+	  	  	   
+  </ons-page>
+  </ons-dialog> 
+</script>	  
+
+
+<script type="text/ons-template" id="testpage.html">    
+
+<ons-page id="page-testpage" class="onsen-display">
+   <ons-toolbar>        
+     <div class="left"><ons-back-button></ons-back-button></div>          
+   </ons-toolbar>
+   
+   <ons-list>
+    <ons-list-item ons-lazy-repeat="MyDelegate" modifier="chevron">      
+    </ons-list-item>
+  </ons-list>
+   
+</ons-page>   
+</script>	  
+
+
+<script type="text/ons-template" id="custompage.html">   
+<ons-navigator title="Navigator" var="sNavigator"> 
+<ons-page id="page-custom" on-device-backbutton="backtoHome()" >
+   <ons-toolbar>     
+   
+    <div class="left">
+     <ons-toolbar-button onclick="setHome();">
+        <ons-icon icon="fa-chevron-left"></ons-icon>
+     </ons-toolbar-button>        
+    </div> 
+         
+    <div class="center white">
+    <span id="custompage_title" class="custompage_title"></span>
+    </div>                  
+   </ons-toolbar>
+   
+   <div class="custom_page_content" id="custom_page_content">
+   </div>
+
+</ons-page>
+</ons-navigator> 
 </script>
 
 </body>
