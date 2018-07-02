@@ -2,15 +2,15 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
     xmlns:gap = "http://phonegap.com/ns/1.0"
     xmlns:android = "http://schemas.android.com/apk/res/android"
-    id        = "kmrs.mobile.app"
-    versionCode = "22"
-    version   = "2.2">
-    <name>Karenderia Mobile App</name>
+    id        = "pe.mi.bar"
+    versionCode = "33"
+    version   = "3.3">
+    <name>Delivery Mi Bar 24</name>
     <description>
-        Karenderia mobile app version
+        Delivery de cerveza en Lima
     </description>
-    <author email="bastikikang@gmail.com" href="http://cordova.io">
-        bastisapp.com
+    <author email="hola@mibar24.com" href="http://cordova.io">
+        mibar24.com
     </author>
             
     <content src="index.html" />
