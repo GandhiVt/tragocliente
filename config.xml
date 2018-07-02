@@ -3,8 +3,8 @@
     xmlns:gap = "http://phonegap.com/ns/1.0"
     xmlns:android = "http://schemas.android.com/apk/res/android"
     id        = "pe.mi.bar"
-    versionCode = "32"
-    version   = "3.2">
+    versionCode = "40"
+    version   = "4">
     <name>Mi Bar 24</name>
     <description>
         Delivery de bebidas en Lima
@@ -76,7 +76,7 @@
         </application>        
     </gap:config-file> 
 	            
-    <preference name="phonegap-version" value="cli-7.0.1" />     
+    <preference name="phonegap-version" value="cli-7.1.0" />     
     <gap:plugin name="cordova-plugin-camera" source="npm" spec="2.4.1" />
     <gap:plugin name="cordova-plugin-file-transfer" source="npm" spec="1.6.2" /> 
     <gap:plugin spec="https://github.com/danwilson/google-analytics-plugin.git" source="git" />     
