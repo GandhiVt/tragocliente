@@ -320,15 +320,12 @@ function tplCartRowHiddenFields(label, value, field_name, x, class_name)
 
 function initMobileScroller()
 {	
-	
-	//https://docs.mobiscroll.com/jquery/select#localization
 	if ( $('.delivery_date').exists()){
 		$('.delivery_date').mobiscroll().date({
 			theme: 'android-holo-light', 
 			mode: "scroller",
 			display: "modal",
-			dateFormat : "yy-mm-dd",
-			//lang : "de"
+			dateFormat : "yy-mm-dd"
 		});
 	}
 	

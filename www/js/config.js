@@ -1,8 +1,8 @@
-var krms_config ={			
-	'ApiUrl':"https://mibar24.com/mobileapp/api",		
-	'DialogDefaultTitle':"Delivery Mi Bar 24",	
-	'pushNotificationSenderid':"29667333816",	
-	'facebookAppId':"208153039733325",
-	'APIHasKey':"ea27d99f22565f843ec26cc8ea9fbce5"
-};
 
+var krms_config ={		
+	'ApiUrl':"http://www.patraer.com/mobileapp/api",				
+	'DialogDefaultTitle':"Delivery de Cerveza",	
+	'pushNotificationSenderid':"409670212325",	
+	'facebookAppId':"101091337135047", 
+	'APIHasKey':"6ba1b75db3f5491671ef9e732e400b3b"
+};
