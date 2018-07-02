@@ -49,7 +49,7 @@
     <gap:plugin name="cordova-plugin-buildinfo" source="npm" spec="1.1.0"  />
     
     <gap:plugin name="cordova-plugin-googleplus" source="npm">
-     <variable name="REVERSED_CLIENT_ID" value="" />
+     <variable name="REVERSED_CLIENT_ID" value="29667333816-e3jvvtb8gfvlnnh96j1iilk8di4jcn4b.apps.googleusercontent.com" />
     </gap:plugin>
 		
     <platform name="android" />    
@@ -58,7 +58,7 @@
 	<preference name="AutoHideSplashScreen" value="false" />  	
     <preference name="SplashScreenDelay" value="10000" />    
     <preference name="fullscreen" value="false" />
-    <preference name="android-minSdkVersion" value="19" />     
+    <preference name="android-minSdkVersion" value="16" />     
     <preference name="ShowSplashScreenSpinner" value="false" />	
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#00B279" />
@@ -75,7 +75,7 @@
         </application>        
     </gap:config-file> 
 	            
-    <preference name="phonegap-version" value="cli-7.1.0" />     
+    <preference name="phonegap-version" value="cli-7.0.1" />     
     <gap:plugin name="cordova-plugin-camera" source="npm" spec="2.4.1" />
     <gap:plugin name="cordova-plugin-file-transfer" source="npm" spec="1.6.2" /> 
     <gap:plugin spec="https://github.com/danwilson/google-analytics-plugin.git" source="git" />     
