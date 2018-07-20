@@ -5,7 +5,7 @@
     id        = "pe.mi.bar"
     versionCode = "22"
     version   = "2.2">
-    <name>Mi bar 24 2.2</name>
+    <name>Mi bar 24 CLI</name>
     <description>
         Karenderia mobile app version
     </description>
