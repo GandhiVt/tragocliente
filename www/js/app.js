@@ -39,12 +39,12 @@ var timer = null;
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {    
-	   					
+	    					
 	navigator.splashscreen.hide();
 	
 	if(!isDebug()){
  	   getLanguageSettings();
-	}	
+	}				
 	
 	
 	
